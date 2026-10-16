@@ -1,0 +1,17 @@
+52 polls, 4 recommender loops with a stable checkpoint + recommendation
+
+== Check 1: P5 estimator on the real recommender histogram vs the real VPA recommendation (mCPU)
+ok   samples=  1  targe: VPA      25.0 P5      25.0  lower: VPA      25.0 P5      25.0  upper: VPA 100000000000000.0 P5 inf
+ok   samples=  2  targe: VPA      25.0 P5      25.0  lower: VPA      25.0 P5      25.0  upper: VPA   19406.0 P5   20289.1
+ok   samples=  3  targe: VPA     182.0 P5     183.0  lower: VPA      25.0 P5      25.0  upper: VPA  122079.0 P5  122781.9
+ok   samples=  4  targe: VPA     182.0 P5     183.0  lower: VPA      83.0 P5      83.6  upper: VPA   87542.0 P5   88045.6
+
+Check 1 result: PASS (4/4 loops reproduced)
+
+== Check 2 (approximate): P5 fed with metrics-server usage at the recommender sample times vs real VPA
+loop   1 usage    0.0m  target VPA    25.0 P5    25.0    +0.0%    +0.0%  n/a
+loop   2 usage    0.0m  target VPA    25.0 P5    25.0    +0.0%    +0.0%    +4.6%
+loop   3 usage  150.3m  target VPA   182.0 P5   183.0    +0.6%    +0.0%    +0.6%
+loop   4 usage  151.3m  target VPA   182.0 P5   183.0    +0.6%    +0.7%    +0.6%
+
+Check 2: target within 6 % (about one bucket) in 4/4 loops (informational; samples are not identical)

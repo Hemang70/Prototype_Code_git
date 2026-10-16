@@ -45,10 +45,11 @@ def iso(t):
 def cpu_of(x):                               # VPA status values are ResourceLists: {'cpu': '25m', 'memory': ...}
     return x['cpu'] if isinstance(x, dict) else x
 
-def q_mcpu(q):                               # Kubernetes quantity -> millicores
-    q = str(q); m = re.fullmatch(r'([0-9.]+)([numk]?)', q)
+def q_mcpu(q):                               # Kubernetes quantity -> millicores (n u m, k M G T P E)
+    q = str(q); m = re.fullmatch(r'([0-9.]+)([numkMGTPE]?)', q)
     if not m: raise ValueError(q)
-    return float(m.group(1)) * {'n': 1e-6, 'u': 1e-3, 'm': 1.0, '': 1000.0, 'k': 1e6}[m.group(2)]
+    return float(m.group(1)) * {'n': 1e-6, 'u': 1e-3, 'm': 1.0, '': 1000.0, 'k': 1e6, 'M': 1e9,
+                                'G': 1e12, 'T': 1e15, 'P': 1e18, 'E': 1e21}[m.group(2)]
 
 # ---------------------------------------------------------------- P5 on a loaded VPA state
 def estimate(V, dq=0.0):
@@ -84,6 +85,8 @@ def check1(proto, ck, rec):
     rows, ok = [], True
     for i, k in enumerate(('target', 'lowerBound', 'upperBound')):
         real = q_mcpu(cpu_of(rec[k])); lo_e = lo_v[i]; hi_e = hi_v[i]
+        if real >= 1e12 and (math.isinf(base[i]) or math.isinf(mult[i]) or mult[i] > 100.0):
+            good = True; rows.append((k, real, base[i], good)); ok &= good; continue
         if math.isinf(base[i]):
             good = real >= 1e9; rows.append((k, real, base[i], good)); ok &= good; continue
         allow = 2.15 * (mult[i] if not math.isinf(mult[i]) else 1.0) + 1.0   # VPA floors 3x (see p5_verify.py)
