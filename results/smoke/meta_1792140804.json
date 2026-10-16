@@ -1,0 +1,23 @@
+{
+ "version": "k8s_prototype.py",
+ "k8s": "v1.37.1",
+ "node": "node01",
+ "node_allocatable_cpu": "1",
+ "sampler": "SshSampler",
+ "thr_ratio": 0.2,
+ "lead_s": 60.0,
+ "policies": [
+  "P1",
+  "P2",
+  "P3",
+  "P6"
+ ],
+ "censor_bump": 2.0,
+ "censor_mode": "resolve",
+ "censor_base": "applied",
+ "traces_source": "embedded",
+ "keys": [
+  "A_S1"
+ ],
+ "started": "2026-10-16 08:53:24"
+}
