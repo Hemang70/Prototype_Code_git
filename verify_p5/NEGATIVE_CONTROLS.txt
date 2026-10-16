@@ -1,0 +1,13 @@
+Does the verification notice a wrong P5?  (each variant = k8s_prototype.py with ONE constant changed)
+
+live selftest (estimator on real checkpoint data), genuine P5: PASS 456/456
+  margin 0.15 -> 0.20            FAIL 0/456
+  target percentile 0.90 -> 0.85 FAIL 0/456
+  upper percentile 0.95 -> 0.99  FAIL 0/456
+  confidence interval 24h -> 12h FAIL 0/456
+  minimum recommendation 25m->50m FAIL 0/456
+
+p5_verify.py (sample aggregation + estimator vs real VPA code), genuine P5: PASS 49/49
+  histogram half-life 24h -> 12h      FAIL (15 cases)
+  bucket growth 5% -> 10%             FAIL (49 cases)
+  first bucket 0.01 -> 0.02 cores     FAIL (49 cases)

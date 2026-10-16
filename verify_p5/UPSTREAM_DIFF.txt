@@ -1,0 +1,26 @@
+Files copied from kubernetes/autoscaler tag vertical-pod-autoscaler-1.8.0 (commit 238579734e73e4a263d1ab75a44353e58eeee3ea)
+and the lines that differ from upstream (diff shows ONLY these):
+
+### pkg/recommender/util/histogram.go
+25c25
+< 	vpa_types "k8s.io/autoscaler/vertical-pod-autoscaler/pkg/apis/autoscaling.k8s.io/v1"
+---
+> 	vpa_types "vpacheck/vpa_types"
+
+### pkg/recommender/util/decaying_histogram.go
+24c24
+< 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+---
+> 	metav1 "vpacheck/metav1"
+26c26
+< 	vpa_types "k8s.io/autoscaler/vertical-pod-autoscaler/pkg/apis/autoscaling.k8s.io/v1"
+---
+> 	vpa_types "vpacheck/vpa_types"
+
+### pkg/recommender/util/histogram_options.go
+
+### pkg/recommender/logic/estimator.go
+23c23
+< 	"k8s.io/autoscaler/vertical-pod-autoscaler/pkg/recommender/model"
+---
+> 	"vpacheck/model"
